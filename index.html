@@ -1,0 +1,126 @@
+<!--Jacob Sullivan
+    Jacob_sullivan@student.uml.edu
+    12/1/2022
+    HW4
+    index.html
+-->
+
+<!-- This file serves as the foundation of the Multiplication Table, creating the form and calling the JS function to create the table 
+    It also creates the sliders and functionality for removing the tabs
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--Linking files and HTML5 -->
+    <title>Math</title>
+    <meta charset="utf-8">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/script.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <h1>Multiplication Table Generator:</h1>
+    <form name="Form" id="commentForm">  <!--Form creation -->
+        <label id="formhead">Please Enter the Below:</label><br><br>
+        <label for="fhorz">Minimum Row Value</label><br>
+        <input type="text" id="fhorz" name="fhorz" value=0 oninput="updateTable(this.form)"><br><br>  <!--Updates current tab's table-->
+        <div id="slider1"></div>    <!--Serves as a placeholder for the sliders-->
+        <label for="shorz">Maximum Row Value</label><br>
+        <input type="text" id="shorz" name="shorz" value=10 oninput="updateTable(this.form)"><br><br>
+        <div id="slider2"></div>
+        <label for="fver">Minimum Column Value</label><br>
+        <input type="text" id="fvert" name="fvert" value=0 oninput="updateTable(this.form)"><br><br>
+        <div id="slider3"></div>
+        <label for="svert">Maximum Column Value</label><br>
+        <input type="text" id="svert" name="svert" value=10 oninput="updateTable(this.form)"><br><br>
+        <div id="slider4"></div>
+        <input type="button" value="Generate Multiplication Table" onclick="submitTable(this.form)"><br> <!--Creates a new tab with the current inputs-->
+        <input type="button" id="removeTab" value="Remove Tab"> <!--Removes the current tab that is viewed-->
+        <input type="button" id="removeSelected" value="Remove Selected">   <!--Removes all tabs that are checked off-->
+    </form>
+    <div id="tabs"> <!-- Used as a place holder for tabs to go-->
+        <ul id="navtabs"></ul>
+    </div>
+
+    <script>
+    $("#slider1").slider({  //slider creation
+        range: "max",   //must be from -50 to 50
+        min: -50,
+        max: 50,
+        value: parseInt($('input[name=fhorz]').val()),  //two way binding where value of slider is based on text box
+        slide: function (e, ui) {
+            $("#fhorz").val(ui.value);  //and whenever the slider moves, the textbox field adapts
+        },
+        stop: function (e, ui) {
+            var form = document.getElementById("commentForm");
+            updateTable(form);  //whenever the slider stops update the table with new input
+        }
+    });
+    $("#slider2").slider({
+        range: "max",
+        min: -50,
+        max: 50,
+        value: parseInt($('input[name=shorz]').val()),
+        slide: function (e, ui) {
+            $("#shorz").val(ui.value);
+        },
+        stop: function (e, ui) {
+            var form = document.getElementById("commentForm");
+            updateTable(form);
+        }
+    });
+    $("#slider3").slider({
+        range: "max",
+        min: -50,
+        max: 50,
+        value: parseInt($('input[name=fvert]').val()),
+        slide: function (e, ui) {
+            $("#fvert").val(ui.value);
+        },
+        stop: function (e, ui) {
+            var form = document.getElementById("commentForm");
+            updateTable(form);
+        }
+    });
+    $("#slider4").slider({
+        range: "max",
+        min: -50,
+        max: 50,
+        value: parseInt($('input[name=svert]').val()),
+        slide: function (e, ui) {
+            $("#svert").val(ui.value);
+        },
+        stop: function (e, ui) {
+            var form = document.getElementById("commentForm");
+            updateTable(form);
+        }
+    });
+    (function($) {
+        $("#tabs").tabs();  //used to implement jquery tabs
+    }) (jQuery);
+    $('#removeTab').click(function() {
+        var tabIndex = $("#tabs .ui-tabs-panel:visible").attr("id");    //whatever tab is being seen will be deleted
+        $("#tabs").find(".ui-tabs-nav li a[href='#" + tabIndex + "']").parent().remove(); //remove both the nav and the content itself 
+        $("#tabs").find("div[id=" + tabIndex + "]").remove();
+        $("#tabs").tabs("refresh"); //refresh once done
+    });
+    $('#removeSelected').click(function() {
+        var checkboxes = document.getElementsByName("cbox");
+        for(var j = 0; j < checkboxes.length; j++) {    //get all checkboxes and the tabs associated with them
+            if(checkboxes[j].checked) {
+                var cbox_id = checkboxes[j].id;
+                var tabIndex = cbox_id.match(/cbox-(.*)/);  //use regex to get the id tabs-i which all tabs have
+                $("#tabs").find(".ui-tabs-nav li a[href='#" + tabIndex[1] + "']").parent().remove();  
+                $("#tabs").find("div[id=" + tabIndex[1] + "]").remove();
+                $("#tabs").tabs("refresh");
+                j--;
+            }
+        }
+        
+    });
+    </script>
+</body>
+</html>

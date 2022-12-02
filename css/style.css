@@ -1,0 +1,101 @@
+/*  Jacob Sullivan
+    Jacob_sullivan@student.uml.edu
+    12/1/2022
+    HW4
+    style.css
+*/
+
+/* This file serves as formatting, in order to create proper spacing, nice looking formatting, and most importantly allow the table to scroll and have the headers remain in place */
+
+/* Placement and formatting of the form*/
+form {
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 10px;
+    border: skyblue solid;
+    float: left;
+    background-color: cadetblue;
+}
+/*Format of body, header, label and textbox of the form */
+body {
+    background-color: beige;
+}
+h1 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    color:crimson;
+    text-decoration: underline;
+    text-decoration-thickness: 10%;
+    background-color:bisque;
+    border: black dotted;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+label {
+    color:aliceblue;
+    font-size: large;
+}
+input {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* Allows the formatting of the head of the form */
+#formhead {
+    font-size: larger;
+    text-decoration: underline;
+    text-decoration-thickness: 25%;
+}
+/* allows every other row to be alternating color */
+tr:nth-child(even) {
+    background-color:navajowhite;
+}
+/* for the div that occurs after the form. */
+#tabs div {
+    overflow-x:auto; /* allows the table to be scrollable */
+    max-width: 85%; /* to fit the table to the screen */
+    max-height: 1000px;
+    float: left; /* to keep the table to the right of the form */
+    margin-left: 50px;
+    margin-top: 50px;
+}
+/* formatting for the cells */
+table td,
+table th {
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    text-align: left;
+}
+/* allows the elements of the row head to remain when scrolling, as well as giving formatting */
+table thead th {
+    padding: 3px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 25vw;
+    background: crimson;
+}
+/* This allows the column headers to hold their formatting, and also remain as you scroll right */
+table tbody th {
+    font-weight: bold; 
+    text-align: left;
+    position: sticky;
+    background-color:crimson;
+    z-index: 1;
+    left: 0;
+}
+/* This allows the corner of the table to always be sticky, whether the rows or columns are moving. */
+table thead th:first-child {
+    position: sticky;
+    left: 1;
+    z-index: 2;
+}
+/* This allows the error messages to be properly displayed under the text box with yellow font */
+#fhorz-error, #shorz-error, #fvert-error, #svert-error {
+    color:yellow;
+    display: flex;
+}
+/* This gets the tabs region to fit in the page better */
+#tabs {
+    float: left;
+    margin-left: 10px;
+    max-width: 75%;
+}
